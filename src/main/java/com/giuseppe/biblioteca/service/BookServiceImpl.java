@@ -8,15 +8,30 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Implementazione dell'interfaccia IBookService.
+ * Traduce le entità del dominio in DTO e gestisce la logica applicativa dei libri.
+ */
 @Service
 public class BookServiceImpl implements IBookService {
 
     private BookRepository bookRepository;
 
+    /**
+     * Inietta il repository dei libri.
+     *
+     * @param bookRepository il repository da usare
+     */
     public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
+    /**
+     * Converte un'entità Book in un BookDTO.
+     *
+     * @param bookEntity l'entità Book da convertire
+     * @return il BookDTO risultante
+     */
     private BookDTO toDTO(Book bookEntity) {
         return new BookDTO(
                 bookEntity.getId(),
@@ -27,6 +42,12 @@ public class BookServiceImpl implements IBookService {
         );
     }
 
+    /**
+     * Converte un BookDTO in un'entità Book.
+     *
+     * @param bookDTO il DTO da convertire
+     * @return l'entità Book risultante
+     */
     private Book toEntity(BookDTO bookDTO) {
         return new Book(
                 bookDTO.id(),
