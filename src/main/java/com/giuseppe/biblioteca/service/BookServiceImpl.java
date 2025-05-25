@@ -75,4 +75,45 @@ public class BookServiceImpl implements IBookService {
         }
         return false;
     }
+
+    @Override
+    public List<BookDTO> findBooksByAuthor(String author) {
+        return bookRepository.findByAuthor(author).stream()
+                .map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookDTO> findBooksByGenre(String genre) {
+        return bookRepository.findByGenre(genre).stream()
+                .map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookDTO> searchBooksByTitle(String title) {
+        return bookRepository.findByTitleContainingIgnoreCase(title).stream()
+                .map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookDTO> findBooksByAnnoLessThan(int year) {
+        return bookRepository.findByAnnoLessThan(year).stream()
+                .map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public int countBooksByAuthor(String author) {
+        return bookRepository.countByAuthor(author);
+    }
+
+    @Override
+    public List<BookDTO> getBooksSortedByAnnoDesc() {
+        return bookRepository.findAllByOrderByAnnoDesc().stream()
+                .map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookDTO> findBooksByTitleOrAuthor(String title, String author) {
+        return bookRepository.findByTitleOrAuthor(title, author).stream()
+                .map(this::toDTO).collect(Collectors.toList());
+    }
 }
